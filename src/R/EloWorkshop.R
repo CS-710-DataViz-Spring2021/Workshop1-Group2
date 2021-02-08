@@ -3,6 +3,9 @@ install.packages(setdiff(packages, rownames(installed.packages())))
 library(ggplot2)
 library(tibble)
 library(dplyr)
+
+dir.create("../src")
+
 #downlads the file and reads filters out all away games to avoid duplicate data and forced symmetry
 d <- read.csv("https://raw.githubusercontent.com/fivethirtyeight/data/master/nba-elo/nbaallelo.csv")
 d<- tibble(d)
@@ -33,11 +36,11 @@ results %>%
   geom_histogram(color="black",binwidth=bin_width,position="identity")+
   scale_fill_manual(values = c("5dade2aa", "#e68762aa") )
   labs(title= "Accuracy of Prediction based on Elo")
-ggsave("pred_plot.jpg")
+ggsave("../results/pred_plot.jpg")
 
 results %>% ggplot +
   aes(x=elo_diff,y=point_diff,color=elo_i)+
   scale_color_steps()+
   geom_point()+
   labs(title= "Home Team Point Difference vs Elo Difference")
-ggsave("point_plot.jpg")
+ggsave("../results/point_plot.jpg")
