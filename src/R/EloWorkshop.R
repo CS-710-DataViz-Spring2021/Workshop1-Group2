@@ -33,11 +33,11 @@ results %>%
   geom_histogram(color="black",binwidth=bin_width,position="identity")+
   scale_fill_manual(values = c("5dade2aa", "#e68762aa") )
   labs(title= "Accuracy of Prediction based on Elo")
-gg.save("pred_plot.jpg")
+ggsave("pred_plot.jpg")
 
 results %>% ggplot +
   aes(x=elo_diff,y=point_diff,color=elo_i)+
   scale_color_steps()+
   geom_point()+
   labs(title= "Home Team Point Difference vs Elo Difference")
-gg.save("point_plot.jpg")
+ggsave("point_plot.jpg")
