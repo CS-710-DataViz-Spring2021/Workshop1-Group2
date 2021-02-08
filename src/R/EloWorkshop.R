@@ -27,17 +27,17 @@ results <- d %>% select(game_id,elo_i,opp_elo_i,pts,opp_pts,game_result) %>%
                                   max(elo_diff)%/%bin_width*bin_width+bin_width,by=bin_width),
                      right=FALSE))
 
+results %>%
+  ggplot +
+  aes(elo_diff,fill=pred_accurate)+
+  geom_histogram(color="black",binwidth=bin_width,position="identity")+
+  scale_fill_manual(values = c("5dade2aa", "#e68762aa") )
+  labs(title= "Accuracy of Prediction based on Elo")
+gg.save("pred_plot.jpg")
 
-bin_summary <- results %>% 
-  group_by(elo_bin,pred_accurate) %>%
-  summarise(count=n())
-
-predict_plot <- results%>% ggplot +
-  aes(x=elo_bin,fill=elo_bin)+
-  geom_histogram()
-
-pt_diff_plot<- results %>% ggplot +
+results %>% ggplot +
   aes(x=elo_diff,y=point_diff,color=elo_i)+
   scale_color_steps()+
   geom_point()+
   labs(title= "Home Team Point Difference vs Elo Difference")
+gg.save("point_plot.jpg")
